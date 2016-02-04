@@ -13,12 +13,4 @@
 
 Route::get('/','StudentController@index');
 Route::post('save','StudentController@saverecord');
-//Route::post('showdata','StudentController@display');
-Route::get('content_ajax', function(){
-	if(Request::ajax()){
-		$students = DB::table('student')->get();
-		return Response::json(array(
-			'students' => 	$students
-		));
-	}
-});
+Route::post('showdata','StudentController@display');

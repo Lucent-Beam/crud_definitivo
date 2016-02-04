@@ -269,7 +269,7 @@
   <script src="js/app.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="js/demo.js"></script>
-
+  <script type="text/javascript" src="js/jquery.js"> </script>
   <script type="text/javascript">
   $(function(){
 
@@ -320,12 +320,10 @@
   </script>
   <script type="text/javascript">
 
-//  $('.show_users').on('click', function(e){
-  //    e.preventDefault();
   $( document ).ready(function() {
        $.ajax({
-        type: 'GET',
-        url: 'content_ajax',
+        type: 'POST',
+        url:  "<?= URL::to('showdata'); ?>",
 
         success: function (data) {
           //$('.preload_users').html('');

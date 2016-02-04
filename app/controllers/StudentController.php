@@ -45,22 +45,10 @@ class StudentController extends BaseController {
 	public function display()
 	{
 
-		  $display = "";
-			$data = DB::table('student')->get();
-
-			foreach ($data as $key) {
-				$display .="
-										<tr>
-										 	<td>$key->id</td>
-											<td>$key->student_name</td>
-											<td>$key->gender</td>
-											<td>$key->phone</td>
-											<td><a href='index.php?id=$key->id' class='edit'>Edit</a> | <a href='index.php?id=$key->id' class='delete'>Delete</a></td>
-									</tr>
-									";
-				return $display;
-
-			}
+		$students = DB::table('student')->get();
+		return Response::json(array(
+		'students' => 	$students
+		));
 
 	}
 
