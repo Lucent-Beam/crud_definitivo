@@ -1,40 +1,21 @@
-$(document).ready(function() {
-	//petición al enviar el formulario de registro
-	var form = $('.register_ajax');
-	    form.bind('submit',function () {
-	        $.ajax({
-	            type: form.attr('method'),
-	            url: form.attr('action'),
-	            data: form.serialize(),
-	            beforeSend: function(){
-	            	$('.before').append('<img src="imgs/350.gif" />');
-	            },
-	            complete: function(data){
+$('.show_users').on('click', function(e){
+    e.preventDefault();
+    $.ajax({
+      type: 'GET',
+      url: 'content_ajax',
 
-	            },
-	            success: function (data) {
-	            	$('.before').hide();
-					$('.errors_form').html('');
-					$('.success_message').hide().html('');
-	            	if(data.success == false){
-		            	var errores = '';
-		            	for(datos in data.errors){
-		            		errores += '<small class="error">' + data.errors[datos] + '</small>';
-		            	}
-		            	$('.errors_form').html(errores)
-		            }else{
-		            	$(form)[0].reset();//limpiamos el formulario
-		            	$('.success_message').show().html(data.message)
-		            }
-	            },
-	            error: function(errors){
-	            	$('.before').hide();
-					$('.errors_form').html('');
-	            	$('.errors_form').html(errors);
-	            }
-	        });
-	   return false;
-	});
+      success: function (data) {
+        //$('.preload_users').html('');
+        $('.load_ajax').html(students)
+        var students = '';
+          for(datos in data.students){
+              students += '<tr><td>'+ data.students[datos].id + '</td>';
+              students += '<td>' + data.students[datos].student_name + '</td>';
+              students += '<td>' + data.students[datos].gender + '</td>';
+              students += '<td>' + data.students[datos].phone + '</td></tr>';
 
-
-});
+          }
+          $('.load_ajax').html(students)
+      }
+    })
+  });

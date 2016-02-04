@@ -78,7 +78,7 @@
             <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info">
-            <p>Alexander Pierce</p>
+            <p>Luis Charres</p>
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
           </div>
         </div>
@@ -96,13 +96,10 @@
         <ul class="sidebar-menu">
           <li class="header">MAIN NAVIGATION</li>
           <li class="treeview">
-            <a href="#">
-              <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+            <a href="/">
+              <i class="fa fa-dashboard"></i> <span>New User</span> <i class="fa fa-angle-left pull-right"></i>
             </a>
-            <ul class="treeview-menu">
-              <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-              <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-            </ul>
+
           </li>
           <li class="treeview">
             <a href="#">
@@ -154,83 +151,96 @@
       </section>
 
       <!-- Main content -->
-      <section class="content">
-        <div class="row">
-          <!-- left column -->
-          <div class="col-md-6">
-            <!-- general form elements -->
-            <div class="box box-primary">
-              <div class="box-header with-border">
-                <h3 class="box-title">Insert</h3>
-              </div><!-- /.box-header -->
-              <!-- form start -->
-              <div class='row'>
-  <h2 class='subheader'>Formulario de registro con ajax en laravel 4</h2>
-         <div class='small-12 columns'>
-            <!--pintamos el formulario haciendo uso de la clase form de laravel-->
-            <div class='form'>
 
-                  {{ Form::open(array('url' => '/', 'class' => 'register_ajax')) }}
+          <section class="content">
+            <div class="row">
+              <!-- left column -->
+              <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Insert Data</h3>
+                  </div><!-- /.box-header -->
+                  <!-- form start -->
 
-                  {{ Form::label('email', 'Email') }}
-
-                  {{ Form::email('email', Input::old('email')) }}
-
-                  {{ Form::label('username', 'Nick') }}
-
-                  {{ Form::text('username', Input::old('username')) }}
-
-                  {{ Form::label('password', 'Password') }}
-
-                  {{ Form::password('password') }}
-
-          {{ Form::label('password_confirmation', 'Confirm password') }}
-
-                  {{ Form::password('password_confirmation') }}
-
-                  <br />
-                  {{ Form::submit('Regístrarme', array('class' => 'button expand round')) }}
-
-                  {{ Form::close() }}
-              </div>
-              <!--en este div mostramos el preloader-->
-              <div style='margin: 10px 0px 0px 300px' class='before'></div>
-              <!--en este los errores del formulario-->
-              <div class='errors_form'></div>
-              <!--en este el mensaje de registro correcto-->
-              <div style='display: none' class='success_message alert-box success'></div>
-
-
-<!--              <form role="form" class="register_ajax" action="/" method="POST">
+                  <form role="form">
                 <div class="box-body">
                   <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="text" class="form-control" id="studentname" placeholder="Enter name">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Nick</label>
-                    <input type="text" class="form-control" id="nick" placeholder="Enter Nick">
+                    <label for="exampleInputPassword1">Gender</label>
+                    <!--<input type="text" class="form-control" id="gender" placeholder="Gender"> -->
+                    <select class="form-control" id="gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="Enter Password">
+                    <label for="exampleInputPhone1">Phone</label>
+                    <input type="text" class="form-control" id="phone" placeholder="Phone">
                   </div>
-                -->
+
                 </div><!-- /.box-body -->
 
                 <div class="box-footer">
-                <!--  <button type="submit" class="btn btn-primary button">Submit</button>-->
+                  <button type="submit" class="btn btn-primary saverecord">Submit</button>
                 </div>
               </form>
-            </div><!-- /.box -->
-          </div><!--/.col (left) -->
-          <!-- right column -->
-          <div class="col-md-6">
 
-          </div><!--/.col (right) -->
-        </div>   <!-- /.row -->
-      </section><!-- /.content -->
-    </div><!-- /.content-wrapper -->
+
+                </div><!-- /.box -->
+
+                <!-- Form Element sizes -->
+
+
+
+
+
+              </div><!--/.col (left) -->
+              <!-- right column -->
+              <div class="col-md-6">
+                <!-- Horizontal Form -->
+                <div class="box box-info">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">Students</h3>
+                  </div><!-- /.box-header -->
+                  <!-- form start -->
+                  <div class="box-body">
+
+            <table id="example1" class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>Phone</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="load_ajax">
+
+              </tbody>
+              <tfoot>
+
+              </tfoot>
+            </table>
+          </div><!-- /.box-body -->
+
+
+
+                </div><!-- /.box -->
+                <!-- general form elements disabled -->
+              </div><!--/.col (right) -->
+            </div>   <!-- /.row -->
+          </section><!-- /.content -->
+        </div><!-- /.content-wrapper -->
+
+
+
+
+
     <footer class="main-footer">
       <div class="pull-right hidden-xs">
         <b>Version</b> 2.3.0
@@ -259,6 +269,83 @@
   <script src="js/app.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="js/demo.js"></script>
+
+  <script type="text/javascript">
+  $(function(){
+
+          $('body').delegate('.edit', 'click', function(){
+            var id=  $(this).data('id');
+            alert(id);
+
+          });
+
+          $('.saverecord').click(function(){
+              var studentname = $('#studentname').val();
+              var gender = $('#gender').val();
+              var phone = $('#phone').val();
+
+              $.ajax({
+                  url : "<?= URL::to('save'); ?>",
+                  type : "POST",
+                  async : false,
+                  data : {
+                      'studentname' : studentname,
+                      'gender': gender,
+                      'phone' : phone,
+                 },
+
+                  success: function(re){
+                      if ( re == 0){
+                        alert('Registro insertado');
+
+
+
+                      }
+                      else {
+                        alert('Error al insertar registro');
+                      }
+
+                  }
+
+              });
+
+          });
+
+
+
+      });
+
+
+
+  </script>
+  <script type="text/javascript">
+
+//  $('.show_users').on('click', function(e){
+  //    e.preventDefault();
+  $( document ).ready(function() {
+       $.ajax({
+        type: 'GET',
+        url: 'content_ajax',
+
+        success: function (data) {
+          //$('.preload_users').html('');
+          $('.load_ajax').html(students)
+          var students = '';
+            for(datos in data.students){
+                students += '<tr><td>'+ data.students[datos].id + '</td>';
+                students += '<td>' + data.students[datos].student_name + '</td>';
+                students += '<td>' + data.students[datos].gender + '</td>';
+                students += '<td>' + data.students[datos].phone + '</td>';
+                students += '<td><a data-id='+data.students[datos].id+' href="#" class="edit">Edit</a>| <a data-id='+data.students[datos].id+' href="#" class="delete">Delete</a></td></tr>';
+
+            }
+            $('.load_ajax').html(students)
+        }
+      })
+    });
+
+
+  </script>
 
 
 
