@@ -42,6 +42,30 @@ class StudentController extends BaseController {
 
 	}
 
+
+	public function updaterecord(){
+
+			$poststudent = Input::all();
+
+			$data = array(
+					'student_name'=> $poststudent['studentname'],
+					'gender'			=> $poststudent['gender'],
+					'phone'				=> $poststudent['phone']
+			);
+
+			$check = DB::table('student')->where('id',$poststudent['id'])->update($data);
+
+			if($check > 0){
+					return 0;
+			}
+
+			else {
+				return 1;
+			}
+
+	}
+
+
 	public function display()
 	{
 
@@ -63,5 +87,24 @@ class StudentController extends BaseController {
 			exit();
 	}
 
+
+	public function delete(){
+		$postedit = Input::all();
+		$id = $postedit['id'];
+		$data = DB::table('student')->where('id', $id)->delete();
+
+			if ($data>0)
+			{
+				return 0;
+
+			}
+			else{
+				return 1;
+
+			}
+
+		exit();
+
+	}
 
 }

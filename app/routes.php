@@ -15,3 +15,5 @@ Route::get('/','StudentController@index');
 Route::post('save','StudentController@saverecord');
 Route::post('showdata','StudentController@display');
 Route::post('editrow','StudentController@edit');
+Route::post('deleterow','StudentController@delete');
+Route::post('update','StudentController@updaterecord');

@@ -185,16 +185,16 @@
                 </div><!-- /.box-body -->
 
                 <div class="box-footer">
-                  <button type="submit" class="btn btn-primary saverecord">Submit</button>
+                  <button type="submit" class="btn btn-primary saverecord">Save Record</button>
+                  <!--<button type="submit" class="btn btn-primary updaterecord">Update Record</button> -->
+
                 </div>
               </form>
-
+              <input type="hidden" id="id">
 
                 </div><!-- /.box -->
 
                 <!-- Form Element sizes -->
-
-
 
 
 
@@ -229,16 +229,64 @@
           </div><!-- /.box-body -->
 
 
-
                 </div><!-- /.box -->
                 <!-- general form elements disabled -->
               </div><!--/.col (right) -->
             </div>   <!-- /.row -->
+            <!-- Button trigger modal -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Actualizar Record</h4>
+                  </div>
+                  <div class="modal-body">
+                <input type="hidden" id="id_m">
+
+              <form role="form">
+                  <div class="box-body">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Name</label>
+                      <input type="text" class="form-control" id="studentname_m" placeholder="Enter name">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Gender</label>
+                      <!--<input type="text" class="form-control" id="gender" placeholder="Gender"> -->
+                      <select class="form-control" id="gender_m">
+                          <option>Male</option>
+                          <option>Female</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPhone1">Phone</label>
+                      <input type="text" class="form-control" id="phone_m" placeholder="Phone">
+                    </div>
+
+                  </div><!-- /.box-body -->
+
+                  <div class="box-footer">
+                  <!--  <button type="submit" class="btn btn-primary updaterecord">Update Record</button> -->
+
+                  </div>
+                </form>
+              <label for="" class="alert">Registro acutalizado</label>
+
+              </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary updaterecord">Grabar cambios</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           </section><!-- /.content -->
+
         </div><!-- /.content-wrapper -->
-
-
-
 
 
     <footer class="main-footer">
@@ -270,10 +318,21 @@
   <!-- AdminLTE for demo purposes -->
   <script src="js/demo.js"></script>
   <script type="text/javascript" src="js/jquery.js"> </script>
+
+  <script type="text/javascript">
+  $('#myModal').on('shown.bs.modal', function () {
+      $('.btn-default').focus()
+})
+  </script>
+
+
   <script type="text/javascript">
   $(function(){
 
+          displaydata();
+
           $('body').delegate('.edit', 'click', function(){
+            $(".alert").hide();
             var id=  $(this).data('id');
               $.ajax({
                   url : "<?= URL::to('editrow') ?>",
@@ -283,11 +342,76 @@
                       'id' : id
                   },
                   success : function(e){
-                      $('#studentname').val(e.student_name);
-                      $('#gender').val(e.gender);
-                      $('#phone').val(e.phone);
+                      $('#id_m').val(e.id);
+                      $('#studentname_m').val(e.student_name);
+                      $('#gender_m').val(e.gender);
+                      $('#phone_m').val(e.phone);
                         }
 
+
+              });
+
+          });
+
+
+
+          $('body').delegate('.delete', 'click', function(){
+            var id=  $(this).data('id');
+              $.ajax({
+                  url : "<?= URL::to('deleterow') ?>",
+                  type : "POST",
+                  async : false,
+                  data: {
+                      'id' : id
+                  },
+                  success : function(d){
+
+                        if (d==0)
+                        {
+                          alert('delete success');
+                          displaydata();
+                        }
+                        else {
+                          alert('error');
+                        }
+
+                        }
+
+
+              });
+
+          });
+
+          $('.updaterecord').click(function(){
+              var id          =$('#id_m').val();
+              var studentname = $('#studentname_m').val();
+              var gender = $('#gender_m').val();
+              var phone = $('#phone_m').val();
+
+              $.ajax({
+                  url : "<?= URL::to('update'); ?>",
+                  type : "POST",
+                  async : false,
+                  data : {
+                      'id'        : id,
+                      'studentname' : studentname,
+                      'gender': gender,
+                      'phone' : phone,
+                 },
+
+                  success: function(re){
+                      if ( re == 0){
+                        $(".alert").show();
+                        displaydata();
+                         $('#myModal').modal('hide');
+
+
+                      }
+                      else {
+                        alert('Error al actualizar registro');
+                      }
+
+                  }
 
               });
 
@@ -311,8 +435,7 @@
                   success: function(re){
                       if ( re == 0){
                         alert('Registro insertado');
-
-
+                        displaydata();
 
                       }
                       else {
@@ -326,40 +449,37 @@
           });
 
 
-
       });
 
 
 
   </script>
+
   <script type="text/javascript">
+  function displaydata(){
 
-  $( document ).ready(function() {
-       $.ajax({
-        type: 'POST',
-        url:  "<?= URL::to('showdata'); ?>",
+    $.ajax({
+     type: 'POST',
+     url:  "<?= URL::to('showdata'); ?>",
 
-        success: function (data) {
-          //$('.preload_users').html('');
-          $('.load_ajax').html(students)
-          var students = '';
-            for(datos in data.students){
-                students += '<tr><td>'+ data.students[datos].id + '</td>';
-                students += '<td>' + data.students[datos].student_name + '</td>';
-                students += '<td>' + data.students[datos].gender + '</td>';
-                students += '<td>' + data.students[datos].phone + '</td>';
-                students += '<td><a data-id='+data.students[datos].id+' href="#" class="edit">Edit</a>| <a data-id='+data.students[datos].id+' href="#" class="delete">Delete</a></td></tr>';
+     success: function (data) {
+       //$('.preload_users').html('');
+       $('.load_ajax').html(students)
+       var students = '';
+         for(datos in data.students){
+             students += '<tr><td>'+ data.students[datos].id + '</td>';
+             students += '<td>' + data.students[datos].student_name + '</td>';
+             students += '<td>' + data.students[datos].gender + '</td>';
+             students += '<td>' + data.students[datos].phone + '</td>';
+             students += '<td><a data-id='+data.students[datos].id+' href="#" class="edit" data-toggle="modal" data-target="#myModal">Edit</a> | <a data-id='+data.students[datos].id+' href="#" class="delete">Delete</a></td></tr>';
 
-            }
-            $('.load_ajax').html(students)
+         }
+         $('.load_ajax').html(students)
         }
-      })
-    });
+   });
 
+  }
 
   </script>
-
-
-
 
  @stop

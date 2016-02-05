@@ -10,10 +10,11 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="css/AdminLTE.min.css">
     <script type="text/javascript" src="js/jquery.js">
-
     </script>
     <script type="text/javascript" src="js/functions.js">
     </script>
+    <script type="text/javascript" src="js/displaydata.js"></script>
+    <script type="text/javascript" src="js/functions.js"> </script>
 
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
