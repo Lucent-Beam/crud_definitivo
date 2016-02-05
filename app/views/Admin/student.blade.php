@@ -275,7 +275,21 @@
 
           $('body').delegate('.edit', 'click', function(){
             var id=  $(this).data('id');
-            alert(id);
+              $.ajax({
+                  url : "<?= URL::to('editrow') ?>",
+                  type : "POST",
+                  async : false,
+                  data: {
+                      'id' : id
+                  },
+                  success : function(e){
+                      $('#studentname').val(e.student_name);
+                      $('#gender').val(e.gender);
+                      $('#phone').val(e.phone);
+                        }
+
+
+              });
 
           });
 

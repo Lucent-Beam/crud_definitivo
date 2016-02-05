@@ -52,5 +52,16 @@ class StudentController extends BaseController {
 
 	}
 
+	public function edit(){
+
+			$postedit = Input::all();
+			$id = $postedit['id'];
+			$data = DB::table('student')->where('id', $id)->first();
+
+			header("Content-type: text/x-json");
+			echo json_encode($data);
+			exit();
+	}
+
 
 }
